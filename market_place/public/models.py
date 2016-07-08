@@ -1,22 +1,14 @@
 from __future__ import unicode_literals
+from django.contrib.auth.models import User
 
 from django.db import models
 
-
-class User(models.Model):
-	username = models.CharField(max_length=64)
-	password = models.CharField(max_length=256)
-	first_name = models.CharField(max_length=24)
-	last_name = models.CharField(max_length=24)
-	email = models.EmailField()
-	created_date = models.DateTimeField(auto_now=True)
-	active = models.BooleanField()
-	followers = models.ManyToManyField('self', related_name='user_=followers')
-
-
 class Category(models.Model):
-	parent_category = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
+	parent_category = models.ForeignKey('self', null=True, blank=True, default=None, on_delete=models.CASCADE)
 	name = models.CharField(max_length=128)
+
+	def __str__(self):
+		return self.name
 
 
 class Article(models.Model):

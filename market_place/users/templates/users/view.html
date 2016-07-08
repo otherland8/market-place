@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+	<h2>Profile</h2>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Basic information</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row" style="margin-bottom: 15px">
+				{% load staticfiles %}
+				<div class="col-sm-offset-2 col-sm-2">
+					<img id="profile_picture" src="{% static user_profile.picture_url %}" class="img-circle" style="width: 100%;" />
+				</div>
+			</div>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">First name</label>
+					<div class="col-sm-6">
+						<p class="form-control-static">{{ user_profile.user.first_name }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Last name</label>
+					<div class="col-sm-6">
+						<p class="form-control-static">{{ user_profile.user.last_name }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-6">
+						<p class="form-control-static">{{ user_profile.user.email }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Address</label>
+					<div class="col-sm-6">
+						<p class="form-control-static">{{ user_profile.address }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Date of birth</label>
+					<div class="col-sm-6">
+						<p class="form-control-static">{{ user_profile.date_of_birth|date:'m/d/Y' }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary">Follow</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>	
+</div>
+{% endblock %}
