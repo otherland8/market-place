@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+	<h2>New article</h2>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Basic information</h3>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" action="{% url 'article:new' %}" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="title" class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="title" name="title" required />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="category" class="col-sm-2 control-label">Category</label>
+					<div class="col-sm-6">
+	    				<select id="category" name="category" class="form-control">
+	    					{% if top_categories %}
+    							{% for top_category in top_categories %}
+    								<option value="{{ top_category.id }}">{{ top_category.name }}</option>
+    							{% endfor %}
+	    					{% endif %}
+	    				</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="description" class="col-sm-2 control-label">Description</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" id="description" name="description" ></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="starting_price" class="col-sm-2 control-label">Starting price</label>
+					<div class="col-sm-6">
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="number" class="form-control" id="starting_price" name="starting_price" required/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="buyout_price" class="col-sm-2 control-label">Buyout price</label>
+					<div class="col-sm-6">
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="number" class="form-control" id="buyout_price" name="buyout_price" required/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="condition" class="col-sm-2 control-label">Condition</label>
+					<div class="col-sm-6">
+	    				<select id="condition" name="condition" class="form-control">
+	    					{% if conditions %}
+    							{% for id, name in conditions %}
+    								<option value="{{ id }}">{{ name }}</option>
+    							{% endfor %}
+	    					{% endif %}
+	    				</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="expiry_date" class="col-sm-2 control-label">Expiry date</label>
+					<div class="col-sm-6">
+						<input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date" required/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary">Create</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

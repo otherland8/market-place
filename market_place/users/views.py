@@ -37,6 +37,10 @@ class Index(View):
 		context = get_layout_context(request, 'users/profile')
 		user_profile = save_user_profile(request)
 		if user_profile:
+			if user_profile.picture_path:
+				user_profile.picture_url = 'public/upload/users/{0}/{1}'.format(request.user.username, user_profile.picture_path)
+			else:
+				user_profile.picture_url = 'public/upload/no_profile.png'
 			context['user_profile'] = user_profile
 		return render(request, 'users/index.html', context)
 
@@ -44,18 +48,17 @@ class Index(View):
 class ViewProfile(View):
 
 	def get(self, request, username, *args, **kwargs):
-		print('username: {0}'.format(username))
 		context = get_layout_context(request, None)
 		try:
 			user_profile = UserProfile.objects.get(user__username=username)
 			if user_profile.picture_path:
-				user_profile.picture_url = 'public/upload/users/{0}/{1}'.format(request.user.username, user_profile.picture_path)
+				user_profile.picture_url = 'public/upload/users/{0}/{1}'.format(username, user_profile.picture_path)
 			else:
 				user_profile.picture_url = 'public/upload/no_profile.png'
 			context['user_profile'] = user_profile
 		except Exception, e:
 			pass
-			
+
 		return render(request, 'users/view.html', context)
 
 
